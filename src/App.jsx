@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { BaseColaboradores as db } from "./baseColaboradores";
+import { BaseColaboradores as db } from "./assets/baseColaboradores";
+
+import Header from "./components/Header";
+import Form from "./components/Form/Form";
+import List from "./components/List";
 
 const App = () => {
   const [workers, setWorkers] = useState(db);
@@ -31,64 +35,17 @@ const App = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center bg-gray-900 text-white p-4">
-        <h2>Buscador de colaboradores</h2>
-        <input
-          type="text"
-          placeholder="Busca un colaborador"
-          className="text-gray-700 rounded p-1"
-          onChange={(e) => setWorerSearch(e.target.value)}
-        />
-      </div>
+      <Header onchange={(e) => setWorerSearch(e.target.value)} />
 
-      <form onSubmit={handleSubmit} className="p-5">
-        <div className="mb-5">
-          <p className="mb-2">Nombre del colaborador</p>
-          <input
-            type="text"
-            className="border border-gray-600 py-2 px-3 w-full text-gray-700 rounded"
-            placeholder="Ingresa el nombre del colaborador"
-            value={name}
-            onChange={inputNameChange}
-          />
-        </div>
-        <div className="mb-5">
-          <p className="mb-2">Correo del colaborador</p>
-          <input
-            type="text"
-            className="border border-gray-600 py-2 px-3 w-full text-gray-700 rounded"
-            placeholder="Ingresa el correo del colaborador"
-            value={email}
-            onChange={inputEmailChange}
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-700 hover:bg-blue-900 text-white py-2 px-6 rounded-md"
-        >
-          Agregar colaborador
-        </button>
-      </form>
+      <Form
+        nameState={name}
+        emailState={email}
+        onChangeNameProp={inputNameChange}
+        onChangeEmailProp={inputEmailChange}
+        onSubmitProp={handleSubmit}
+      />
 
-      <div className="p-5 flex flex-col items-center">
-        <h2 className="text-2xl mb-3">Listado de colaboradores</h2>
-        <ul>
-          {workers
-            .filter((worker) => {
-              return workerSearch.toLowerCase() === ""
-                ? worker
-                : worker.nombre.toLowerCase().includes(workerSearch);
-            })
-            .map((worker) => (
-              <li
-                className="border-b border-gray-400 text-center pb-1 px-5 mb-2"
-                key={worker.id}
-              >
-                {worker.nombre} - {worker.correo}
-              </li>
-            ))}
-        </ul>
-      </div>
+      <List workersState={workers} workerSearchState={workerSearch} />
     </>
   );
 };
