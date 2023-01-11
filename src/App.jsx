@@ -5,6 +5,7 @@ const App = () => {
   const [workers, setWorkers] = useState(db);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [workerSearch, setWorerSearch] = useState("");
 
   const inputNameChange = (e) => {
     setName(e.target.value);
@@ -36,6 +37,7 @@ const App = () => {
           type="text"
           placeholder="Busca un colaborador"
           className="text-gray-700 rounded p-1"
+          onChange={(e) => setWorerSearch(e.target.value)}
         />
       </div>
 
@@ -68,14 +70,23 @@ const App = () => {
         </button>
       </form>
 
-      <div className="p-5">
+      <div className="p-5 flex flex-col items-center">
         <h2 className="text-2xl mb-3">Listado de colaboradores</h2>
         <ul>
-          {workers.map((worker) => (
-            <li key={worker.id}>
-              {worker.nombre} - {worker.correo}
-            </li>
-          ))}
+          {workers
+            .filter((worker) => {
+              return workerSearch.toLowerCase() === ""
+                ? worker
+                : worker.nombre.toLowerCase().includes(workerSearch);
+            })
+            .map((worker) => (
+              <li
+                className="border-b border-gray-400 text-center pb-1 px-5 mb-2"
+                key={worker.id}
+              >
+                {worker.nombre} - {worker.correo}
+              </li>
+            ))}
         </ul>
       </div>
     </>

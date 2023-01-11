@@ -14,4 +14,9 @@ export const BaseColaboradores = [
     nombre: "Colaborador 3",
     correo: "colaborador3@colaborador3.com",
   },
+  {
+    id: "4",
+    nombre: "Fernando Lorca",
+    correo: "fernando@fernando.com",
+  },
 ];
