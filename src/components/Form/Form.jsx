@@ -8,6 +8,7 @@ const Form = ({
   onChangeNameProp,
   onChangeEmailProp,
   onSubmitProp,
+  handlerError,
 }) => {
   return (
     <form onSubmit={onSubmitProp} className="p-5">
@@ -18,6 +19,7 @@ const Form = ({
       <div className="mb-5">
         <InputTitle text="Correo del colaborador" />
         <Input valueState={emailState} onChangeProp={onChangeEmailProp} />
+        <p className="text-red-500">{handlerError}</p>
       </div>
       <Button text="Agregar colaborador" buttonType="submit" />
     </form>

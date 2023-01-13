@@ -10,6 +10,7 @@ const App = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [workerSearch, setWorerSearch] = useState("");
+  const [error, setError] = useState("");
 
   const inputNameChange = (e) => {
     setName(e.target.value);
@@ -28,6 +29,12 @@ const App = () => {
       correo: email,
     };
 
+    if (name === "" || email === "") {
+      return setError("Debes ingresar datos");
+    } else {
+      setError("");
+    }
+
     setWorkers([...workers, newWorker]);
     setName("");
     setEmail("");
@@ -43,9 +50,13 @@ const App = () => {
         onChangeNameProp={inputNameChange}
         onChangeEmailProp={inputEmailChange}
         onSubmitProp={handleSubmit}
+        handlerError={error}
       />
 
-      <List workersState={workers} workerSearchState={workerSearch} />
+      <List
+        workersState={workers}
+        workerSearchState={workerSearch.toLocaleLowerCase()}
+      />
     </>
   );
 };
